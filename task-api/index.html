@@ -1,0 +1,47 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Task</h1>
+    <table>
+      <thead>
+        <th>Title</th>
+        <th>Amount</th>
+        <th>Quantity</th>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <script>
+      (async () => {
+        const response = await fetch("http://localhost:8080/items");
+        const { data } = await response.json();
+        const rows = data.map(createRow);
+
+        document.querySelector("tbody").append(...rows);
+      })();
+
+      function createRow(task) {
+        const row = document.createElement("tr");
+
+        const titleElm = document.createElement("td");
+        const amountElm = document.createElement("td");
+        const quantityElm = document.createElement("td");
+
+        titleElm.textContent = task.title;
+        amountElm.textContent = task.price;
+        quantityElm.textContent = task.quantity;
+
+        row.appendChild(titleElm);
+        row.appendChild(amountElm);
+        row.appendChild(quantityElm);
+
+        return row;
+      }
+    </script>
+  </body>
+</html>
